@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+	<!-- Internationalization parameters for supporting multiple languages -->
+
+	<context-param>
+		<!-- Default locale - overrides browser HTTP "Accept-Language" -->
+		<param-name>javax.servlet.jsp.jstl.fmt.locale</param-name>
+		<param-value>el</param-value>
+	</context-param>
+
+	<context-param>
+		<!-- Fallback locale - when a locale has not been set or is not available -->
+		<param-name>javax.servlet.jsp.jstl.fmt.fallbackLocale</param-name>
+		<param-value>el</param-value>
+	</context-param>
+
+	<!-- Authentication configuration with Filter -->
+
+	<filter>
+		<filter-name>AuthFilter_Admin</filter-name>
+		<filter-class>gr.unipi.gym.auth.AuthFilter</filter-class>
+		<init-param>
+			<param-name>loginForm</param-name>
+			<param-value>/controllers/login</param-value>
+		</init-param>
+		<init-param>
+			<param-name>userRole</param-name>
+			<param-value>admin</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>AuthFilter_Admin</filter-name>
+		<url-pattern>/controllers/admin_programs</url-pattern>
+		<url-pattern>/controllers/admin_classes</url-pattern>
+	</filter-mapping>
+
+	<!-- Authentication configuration with Filter -->
+
+	<filter>
+		<filter-name>AuthFilter_User</filter-name>
+		<filter-class>gr.unipi.gym.auth.AuthFilter</filter-class>
+		<init-param>
+			<param-name>loginForm</param-name>
+			<param-value>/controllers/login</param-value>
+		</init-param>
+		<init-param>
+			<param-name>userRole</param-name>
+			<param-value>user</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>AuthFilter_User</filter-name>
+		<url-pattern>/controllers/member</url-pattern>
+	</filter-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>
